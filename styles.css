@@ -10,7 +10,7 @@ body {
 
   .grid-container {
     display: grid;
-    height: 400px;
+    height: 500px;
     align-content: center;
     grid-template-columns: auto auto auto;
     grid-gap: 10px;

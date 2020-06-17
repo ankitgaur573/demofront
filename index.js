@@ -16,13 +16,21 @@
 
 var number1;
 var number2;
+var answer;
 var operation;
+$('.c').click(function(){
+    number1 = number2 = operation = answer = undefined;
+    document.getElementById("display").value = ""
+});
+
 $('.b').click(function(){
     let value = $(this).text();
 
     // alert(typeof value);
     let parsedval = parseInt(value);
-    if(!isNaN(parsedval)){
+    if(answer || answer === 0) number1 = answer.toString();
+    answer = undefined;
+    if(!isNaN(parsedval) || value == '.'){
         if(operation){
             if(number2){
                 number2 = number2+value;
@@ -40,38 +48,62 @@ $('.b').click(function(){
     }else{
         if(operation){
             if(value == "="){
-                calculate(number1, number2, operation);
+                answer = calculate(number1, number2, operation);
+                // answer = toString
+                number1 = undefined;
+                number2 = undefined;
+                operation = undefined;
             }else{
                 alert("Operation allready there")
             }
         
         }else{
-            if(number1){
-                operation = value;
+            if(value == "="){
+                alert("Not valid");
             }else{
-                alert("Enter number first")
+                if(number1){
+                    operation = value;
+                }else{
+                    alert("Enter number first")
+                }
             }
         }
     }
 
-    // let display = number1+
-    document.getElementById("display").value = 
+
+    let display = number1;
+    if(operation){
+        display = display+operation
+        if(number2){
+            display = display+number2
+        }
+    }
+
+    
+    if(answer) display=answer;
+    if(answer === 0) display = '0';
+    if(display)
+     document.getElementById("display").value = display
     console.log(number1, operation, number2)
 
 })
 
 function calculate(number1, number2, operation){
-    console.log("hh")
-     number1 = parseInt(number1);
-     number2 = parseInt(number2);
+    console.log(number1, number2, operation)
+     number1 = parseFloat(number1);
+     number2 = parseFloat(number2);
+     let answer;
     if(operation == "+"){
-        alert(number1+number2)
+        answer = number1+number2;
     }
     else if(operation == "-"){
-        alert(number1-number2);
+        answer= number1-number2;
     }else if (operation == "*"){
-        alert(number1*number2);
+       answer = number1*number2;
     }else if(operation == "/"){
-        alert(number1/number2);
+        answer = number1/number2;
+        
     }
+    // console.log(answer)
+    return answer
 }
